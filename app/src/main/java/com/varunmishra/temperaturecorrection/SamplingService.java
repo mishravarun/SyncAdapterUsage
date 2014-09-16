@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,6 +12,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Environment;
 import android.os.Handler;
@@ -21,6 +23,8 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 
+
+import com.varunmishra.temperaturecorrection.Provider.Provider;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -175,10 +179,13 @@ public class SamplingService extends Service implements SensorEventListener {
          rawtemp=event.values[1];
 		 if (count1==1) writeThread.start();
 	 }
-	
+
+        ContentValues values = new ContentValues();
+        values.put(com.varunmishra.temperaturecorrection.Provider.Provider.id,format);
+        values.put(Provider.name, temp);
+        Uri uri = getContentResolver().insert(Provider.CONTENT_URI, values);
 
 
-          TemperatureCorrectionMain.refreshdisplay();
 
 
         
