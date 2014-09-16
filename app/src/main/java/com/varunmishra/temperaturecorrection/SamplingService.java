@@ -52,8 +52,6 @@ public class SamplingService extends Service implements SensorEventListener {
    
     private SensorManager mSensorManager = null;
     private WakeLock mWakeLock = null;
-    int checkt=0;
-    FileWriter writer4;
     public static float pluggedin=0,phonebat=0,batterypercent=0,rawtemp=0,temp=0;
     int tempflag=0;
     int count1=0;
@@ -84,7 +82,7 @@ public class SamplingService extends Service implements SensorEventListener {
         public void run() {
             while (writeThread == Thread.currentThread()) {
                 try {
-                    writefile();
+
                     Thread.sleep(1000);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -106,31 +104,7 @@ public class SamplingService extends Service implements SensorEventListener {
     		}
         this.registerReceiver(this.batteryInfoReceiver,	new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
-        File root = Environment.getExternalStorageDirectory();
-        File dir = new File(root,"TemperatureCorrection");
-        File tempfile =  new File(dir,"temp.csv");
-        if(dir.exists())
-        {
-        checkt=1;
-        }
-        else
-        {
-        	try{
-			      if(dir.mkdir()) {
-			       
-			      } else {
-			         Toast.makeText(getApplicationContext(), "Directory Not Created", Toast.LENGTH_LONG).show();
-			      }
-			    }catch(Exception e){
-			      e.printStackTrace();
-			    }
-        }
-        try {
-			writer4 = new FileWriter(tempfile,true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 
     }
 
@@ -184,42 +158,7 @@ public class SamplingService extends Service implements SensorEventListener {
         values.put(com.varunmishra.temperaturecorrection.Provider.Provider.id,format);
         values.put(Provider.name, temp);
         Uri uri = getContentResolver().insert(Provider.CONTENT_URI, values);
-
-
-
-
-        
     }
-    public void writefile()
-    {
-    	
-
-    		if(tempflag==1)
-    		{
-    		try {
-    		
-    	       if (checkt==0)
-    	       {
-    	    	   String line = String.format("%s,%s,%s,%s,%s,%s,%s\n", "Time","CurrentTemperature","RawTemperature","BatteryTemperature","Battery%","PluggedIN","CPU%");
-    	    	   writer4.write(line);
-    				checkt=1;
-    	       }
-    		          
-    	       String line = String.format("%s,%f,%f,%f,%f,%f,%f\n", format, temp,rawtemp,phonebat,batterypercent,pluggedin,cPUTotalP.firstElement());
-    	 	  writer4.write(line);
-    	       }catch (IOException e) {
-    	            e.printStackTrace();
-    	}
-    		try {
-    			writer4.flush();
-    			 
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    		
-    		} 		
- }
 
     @Override
     public void onCreate() {

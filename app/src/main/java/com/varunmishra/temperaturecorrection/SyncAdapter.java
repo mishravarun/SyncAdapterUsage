@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -37,6 +39,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -96,7 +99,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                 while (!cursor.isAfterLast()) {
                     String timestamp = cursor.getString(cursor.getColumnIndex("timestamp"));
                     String value = cursor.getString(cursor.getColumnIndex("value"));
-
+                    String responseString ="";
                     HttpClient httpclient = new DefaultHttpClient();
                     HttpPost httppost = new HttpPost("http://varunmishra.com/android-test/upload.php");
                     try {
@@ -104,15 +107,23 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                         nameValuePairs.add(new BasicNameValuePair("id", timestamp));
                         nameValuePairs.add(new BasicNameValuePair("value",value));
                         httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                        httpclient.execute(httppost);
+                        HttpResponse response=  httpclient.execute(httppost);
+                        HttpEntity entity = response.getEntity();
+                        responseString =EntityUtils.toString(entity, "UTF-8");
+                        Log.d("TAGFFFF",responseString);
                     } catch (ClientProtocolException e) {
                         // TODO Auto-generated catch block
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                     }
-                    contentProviderClient.delete(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"),"timestamp=?", new String[]{timestamp});
-                   cursor = contentProviderClient.query(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"),null, null, null, null);
-                    cursor.moveToFirst();
+                    if(responseString.equalsIgnoreCase("Success"))
+                        contentProviderClient.delete(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"), "timestamp=?", new String[]{timestamp});
+
+
+
+                        cursor = contentProviderClient.query(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"), null, null, null, null);
+                        cursor.moveToFirst();
+
                 }
             } catch (RemoteException e) {
             syncResult.hasHardError();
@@ -121,4 +132,5 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
 
     }
+
 }
