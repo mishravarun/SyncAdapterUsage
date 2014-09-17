@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.varunmishra.temperaturecorrection.accounts;
+package com.varunmishra.syncadapter.accounts;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
@@ -29,7 +29,7 @@ import android.util.Log;
 
 public class GenericAccountService extends Service {
     private static final String TAG = "GenericAccountService";
-    private static final String ACCOUNT_TYPE = "com.varunmishra.temperaturecorrection.GenericAccountService";
+    private static final String ACCOUNT_TYPE = "com.varunmishra.syncadapter.GenericAccountService";
     public static final String ACCOUNT_NAME = "sync";
     private Authenticator mAuthenticator;
 

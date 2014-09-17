@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.varunmishra.temperaturecorrection;
+package com.varunmishra.syncadapter;
 
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
-import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.OperationApplicationException;
 import android.content.SyncResult;
 import android.database.Cursor;
 import android.net.Uri;
@@ -93,7 +91,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {
        Log.d("UPUP","Reached here");
         try {
-            Cursor cursor = contentProviderClient.query(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"),null, null, null, null);
+            Cursor cursor = contentProviderClient.query(Uri.parse("content://com.varunmishra.syncadapter.provider/datacollected"),null, null, null, null);
             cursor.moveToFirst();
             StringBuilder res=new StringBuilder();
                 while (!cursor.isAfterLast()) {
@@ -117,11 +115,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                         // TODO Auto-generated catch block
                     }
                     if(responseString.equalsIgnoreCase("Success"))
-                        contentProviderClient.delete(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"), "timestamp=?", new String[]{timestamp});
+                        contentProviderClient.delete(Uri.parse("content://com.varunmishra.syncadapter.provider/datacollected"), "timestamp=?", new String[]{timestamp});
 
 
 
-                        cursor = contentProviderClient.query(Uri.parse("content://com.varunmishra.temperaturecorrection.provider/datacollected"), null, null, null, null);
+                        cursor = contentProviderClient.query(Uri.parse("content://com.varunmishra.syncadapter.provider/datacollected"), null, null, null, null);
                         cursor.moveToFirst();
 
                 }

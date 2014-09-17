@@ -1,4 +1,4 @@
-package com.varunmishra.temperaturecorrection.Provider;
+package com.varunmishra.syncadapter.Provider;
 
 /**
  * Created by varun on 16/9/14.
@@ -18,7 +18,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 public class Provider extends ContentProvider {
-    public static final String PROVIDER_NAME = "com.varunmishra.temperaturecorrection.provider";
+    public static final String PROVIDER_NAME = "com.varunmishra.syncadapter.provider";
     public static final String URL = "content://" + PROVIDER_NAME + "/datacollected";
     public static final Uri CONTENT_URI = Uri.parse(URL);
 

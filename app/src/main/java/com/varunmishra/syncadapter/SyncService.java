@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.varunmishra.temperaturecorrection;
+package com.varunmishra.syncadapter;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
+
 public class SyncService extends Service {
     // Storage for an instance of the sync adapter
     private static SyncAdapter sSyncAdapter = null;

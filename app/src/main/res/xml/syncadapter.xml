@@ -16,8 +16,8 @@ limitations under the License.
 -->
 
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
-              android:contentAuthority="com.varunmishra.temperaturecorrection.provider"
-              android:accountType="com.varunmishra.temperaturecorrection.accounts.GenericAccountService"
+              android:contentAuthority="com.varunmishra.syncadapter.provider"
+              android:accountType="com.varunmishra.syncadapter.accounts.GenericAccountService"
               android:userVisible="true"
               android:supportsUploading="true"
               android:allowParallelSyncs="true"

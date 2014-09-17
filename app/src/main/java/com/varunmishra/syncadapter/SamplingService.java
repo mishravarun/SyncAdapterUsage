@@ -1,4 +1,4 @@
-package com.varunmishra.temperaturecorrection;
+package com.varunmishra.syncadapter;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -14,23 +14,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.BatteryManager;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.Process;
 import android.util.Log;
-import android.widget.Toast;
 
 
-import com.varunmishra.temperaturecorrection.Provider.Provider;
+import com.varunmishra.syncadapter.Provider.Provider;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -155,7 +150,7 @@ public class SamplingService extends Service implements SensorEventListener {
 	 }
 
         ContentValues values = new ContentValues();
-        values.put(com.varunmishra.temperaturecorrection.Provider.Provider.id,format);
+        values.put(com.varunmishra.syncadapter.Provider.Provider.id,format);
         values.put(Provider.name, temp);
         Uri uri = getContentResolver().insert(Provider.CONTENT_URI, values);
     }

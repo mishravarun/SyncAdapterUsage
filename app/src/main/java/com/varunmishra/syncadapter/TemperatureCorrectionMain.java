@@ -1,4 +1,4 @@
-package com.varunmishra.temperaturecorrection;
+package com.varunmishra.syncadapter;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -19,7 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.varunmishra.temperaturecorrection.Provider.Provider;
+import com.varunmishra.syncadapter.Provider.Provider;
 
 public class TemperatureCorrectionMain extends Activity  implements OnClickListener {
     public static final String TAG = TemperatureCorrectionMain.class.getName();
@@ -30,9 +30,9 @@ public class TemperatureCorrectionMain extends Activity  implements OnClickListe
     // Path for the content provider table
     public static final String TABLE_PATH = "temperature";
 
-    public static final String AUTHORITY = "com.varunmishra.temperaturecorrection.provider";
+    public static final String AUTHORITY = "com.varunmishra.syncadapter.provider";
     // An account type, in the form of a domain name
-    public static final String ACCOUNT_TYPE = "com.varunmishra.temperaturecorrection.accounts.GenericAccountService";
+    public static final String ACCOUNT_TYPE = "com.varunmishra.syncadapter.accounts.GenericAccountService";
     // The account name
     public static final String ACCOUNT = "sync";
     // Instance fields
